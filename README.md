@@ -7,7 +7,7 @@ git init
 git remote add origin https://github.com/alxdr/share.git
 git remote -v
 git stash save -u
-git pull
+git pull origin master
 git stash list
 git stash pop
 git status
