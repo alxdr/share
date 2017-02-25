@@ -26,7 +26,7 @@ git status
 
 CREATE .env.ini FILE:
 
-cp .env .env.ini
+cp .env app/.env.ini
 
 edit .env.ini file
 
