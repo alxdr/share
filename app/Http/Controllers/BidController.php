@@ -39,13 +39,7 @@ class BidController extends Controller
             }
         }
     	
-
-		$result = $this->pdo->query("SELECT * FROM Items");
-        $table = [];
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $table[] = $row;
-        }
-        return view('index')->with('table', $table);
+	return redirect('main');
     }
 }
 

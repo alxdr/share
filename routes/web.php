@@ -14,7 +14,7 @@
 Auth::routes();
 Route::get('/', 'IndexController@login');
 Route::get('/home', 'HomeController@index');
-Route::get('/main', 'IndexController@index');
+Route::get('/main', 'IndexController@index')->name('main');
 Route::get('add_item', 'AddItemController@add_item');
 Route::get('add_item_post', 'AddItemController@add_item_post');
 Route::get('bid_item', 'BidController@bid_item');
