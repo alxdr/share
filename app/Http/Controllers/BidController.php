@@ -28,7 +28,7 @@ class BidController extends Controller
     public function bid_for_item(Request $req) {
     	$item_id=$req->bid_item_id;
     	$point=$req->bid_item_point;
-        echo $bidder=Auth::id();
+        $bidder=Auth::id();
         $temp=$this->pdo->query("SELECT count(*) as total FROM bids WHERE item_id=".$item_id);
         if($temp->fetch(PDO::FETCH_ASSOC)['total']==0){
             $this->pdo->exec("INSERT INTO bids (item_id,highest_bid,highest_bidder) VALUES(".$item_id.", ".$point.", ".$bidder.")");
