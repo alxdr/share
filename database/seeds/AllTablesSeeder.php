@@ -39,5 +39,18 @@ class AllTablesSeeder extends Seeder
 	    $queryStr = "INSERT INTO Items (item_id, description, availability, owner, bid_end_date) VALUES ($i, '$str', TRUE, $id, NULL)";
 	    $pdo->exec($queryStr);
 	}
+	
+	for ($i = 1; $i <=$limit; $i++) {
+	    if ($faker->randomDigit % 2 == 0) {
+	    	$bidder_id = $faker->numberBetween($min=1,$max=10);
+		$bid = $faker->numberBetween($min=1,$max=200);
+	    	$queryStr = "INSERT INTO Bids (item_id, highest_bid, highest_bidder) VALUES ($i, $bid, $bidder_id)";
+	    	$pdo->exec($queryStr);
+		
+	    }
+	    else {
+	  	continue;
+	    }
+	}
     }
 }
