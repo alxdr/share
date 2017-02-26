@@ -44,6 +44,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         &nbsp;
+			@if (Auth::guest())
+			@else
+			<li><a href="/home">Home</a></li>
+			<li><a href="add_item">Add Item</a></li>
+			@endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -83,5 +88,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

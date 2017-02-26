@@ -1,8 +1,11 @@
-@extends('template')
-@section('main')
+@extends('layouts.app')
+@section('content')
+<div class="container">
 <div class="row">
-<div class="col-xs-1"></div>
-<div class="col-xs-10">
+<div class="col-md-8 col-md-offset-2">
+<div class="panel panel-default">
+<div class="panel-heading">Stuff for Sharing, Borrowing and Lending</div>
+<div class="panel-body">
 <div class="table-responsive">
 <table class="table-striped table-bordered table-hover">
 <thead>
@@ -33,6 +36,8 @@
 </table>
 </div>
 </div>
-<div class="col-xs-1"></div>
+</div>
+</div>
+</div>
 </div>
 @endsection
