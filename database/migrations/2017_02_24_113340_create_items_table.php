@@ -67,10 +67,10 @@ class CreateItemsTable extends Migration
     {
 	$pdo = Conn::connect();
 	
-        $ddl = ['DROP TABLE Loan;',
-		'DROP TABLE Bids;',
-		'DROP TABLE Items;',
-		'DROP TABLE Users;'];
+        $ddl = ['DROP TABLE IF EXISTS Loan;',
+		'DROP TABLE IF EXISTS Bids;',
+		'DROP TABLE IF EXISTS Items;',
+		'DROP TABLE IF EXISTS Users;'];
 
 	foreach ($ddl as $table) {
 	    $pdo->exec($table);
