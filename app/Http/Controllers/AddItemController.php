@@ -35,12 +35,6 @@ class AddItemController extends Controller
 
     $this->pdo->exec("INSERT INTO Items (item_id, availability, description, owner) VALUES ($count, 'TRUE', '" .$req -> description. "', ".$user_id.")");
     //$this->pdo->exec("INSERT INTO Items (item_id, availability, description, owner) VALUES ($count, 'TRUE', '".$req -> description."', 11)");
-
-    $result = $this->pdo->query("SELECT * FROM Items");
-    $table = [];
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-    $table[] = $row;
-    }
-    return view('index')->with('table', $table);
+    return redirect('main');
     }
 }
