@@ -26,9 +26,11 @@ git status
 
 CREATE .env.ini FILE:
 
+edit .env to input your OWN DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD credentials
+
 cp .env app/.env.ini
 
-edit .env.ini file
+edit .env.ini
 
 rm all lines except for DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD
 
