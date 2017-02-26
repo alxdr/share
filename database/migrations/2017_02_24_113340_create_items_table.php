@@ -19,9 +19,10 @@ class CreateItemsTable extends Migration
 	$ddl = [
 	    'CREATE TABLE Users (
 		user_id INT,
-		email VARCHAR(50),
-		password VARCHAR(20),
+		email VARCHAR(255),
+		password VARCHAR(255),
 		is_admin BOOLEAN,
+		remember_token VARCHAR(100),
 		PRIMARY KEY(user_id));',
 	    'CREATE TABLE Items (
 		item_id INT,
@@ -67,6 +68,7 @@ class CreateItemsTable extends Migration
 	$pdo = Conn::connect();
 	
         $ddl = ['DROP TABLE Loan;',
+		'DROP TABLE Bids;',
 		'DROP TABLE Items;',
 		'DROP TABLE Users;'];
 
