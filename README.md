@@ -64,4 +64,20 @@ chmod o+w storage/framework/views
 
 chmod o+w storage/logs
 
+SET UP DATABASE:
+
+cd /path/to/share
+
+php artisan make:migration create_items_table
+
+php artisan migrate:rollback
+
+rm everything (create_users_table, create_password_resets_table) in database/migrations EXCEPT create_items_table
+
+composer dump-autoload
+
+php artisan migrate
+
+php artisan db:seed --class=AllTablesSeeder
+
 Go to localhost and check it is live locally.
