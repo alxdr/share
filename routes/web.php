@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', 'IndexController@login');
-
 Auth::routes();
-
+Route::get('/', 'IndexController@login');
 Route::get('/home', 'HomeController@index');
-
 Route::get('/main', 'IndexController@index');
+Route::get('add_item', 'AddItemController@add_item');
+Route::get('add_item_post', 'AddItemController@add_item_post');
