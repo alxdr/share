@@ -28,10 +28,17 @@ class CreateItemsTable extends Migration
 		description VARCHAR(50),
 		availability BOOLEAN,
 		owner INT,
-		highest_bid INT,
 		bid_end_date TIMESTAMP,
 		PRIMARY KEY(item_id),
 		FOREIGN KEY(owner) REFERENCES Users(user_id) 
+		ON DELETE CASCADE);',
+	    'CREATE TABLE Bids (
+		item_id INT,
+		highest_bid INT,
+		highest_bidder INT,
+		PRIMARY KEY(item_id),
+		FOREIGN KEY(item_id) REFERENCES Items(item_id),
+		FOREIGN KEY(highest_bidder) REFERENCES Users(user_id)
 		ON DELETE CASCADE);',
 	    'CREATE TABLE Loan (
 		return_date TIMESTAMP NOT NULL,

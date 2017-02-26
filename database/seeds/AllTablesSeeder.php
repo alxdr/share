@@ -36,7 +36,7 @@ class AllTablesSeeder extends Seeder
 	    	$str = $start . $country . $end . $faker->numberBetween($min=1,$max=12);
 	    }
 	    $id = $faker->numberBetween($min=1,$max=10);
-	    $queryStr = "INSERT INTO Items (item_id, description, availability, owner, highest_bid, bid_end_date) VALUES ($i, '$str', TRUE, $id, NULL, NULL)";
+	    $queryStr = "INSERT INTO Items (item_id, description, availability, owner, bid_end_date) VALUES ($i, '$str', TRUE, $id, NULL)";
 	    $pdo->exec($queryStr);
 	}
     }
