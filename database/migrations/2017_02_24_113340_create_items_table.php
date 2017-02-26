@@ -38,7 +38,8 @@ class CreateItemsTable extends Migration
 		highest_bid INT,
 		highest_bidder INT,
 		PRIMARY KEY(item_id),
-		FOREIGN KEY(item_id) REFERENCES Items(item_id),
+		FOREIGN KEY(item_id) REFERENCES Items(item_id)
+		ON DELETE CASCADE,
 		FOREIGN KEY(highest_bidder) REFERENCES Users(user_id)
 		ON DELETE CASCADE);',
 	    'CREATE TABLE Loan (
