@@ -48,6 +48,7 @@
 			@else
 			<li><a href="/home">Home</a></li>
 			<li><a href="add_item">Add Item</a></li>
+			<li><a href="bid_item">Bid Item</a></li>
 			@endif
                     </ul>
 
