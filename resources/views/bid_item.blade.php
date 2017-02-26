@@ -1,5 +1,5 @@
-@extends('template')
-@section('main')
+@extends('layouts.app')
+@section('content')
 <div class="container">
     <form action='submit_bid_info' method='get'>
         Enter Item ID:<br>
