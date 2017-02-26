@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
+Route::get('/', 'IndexController@login');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/main', 'IndexController@index');
