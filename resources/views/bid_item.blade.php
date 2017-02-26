@@ -5,7 +5,7 @@
         Enter Item ID:<br>
         <input type='number' name='bid_item_id' value=''><br>
         Enter Bid Point:<br>
-        <input type='number' name='bid_item_point' value=''><br>
+        <input type='number' name='bid_item_point' value='' min='1'><br>
         <input type='submit' value='Submit'>
     </form>
 </div>

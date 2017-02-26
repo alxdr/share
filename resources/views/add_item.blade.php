@@ -8,8 +8,6 @@
   <form action="add_item_post" method="get">
   	Description:<br>
   	<input type="text" name="description" value=""><br>
-  	Owner:<br>
-  	<input type="text" name="owner" value=""><br><br>
   	<input type="submit" value="Add Item">
 	</form>
 </div>
