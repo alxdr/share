@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Connection as conn;
+use \PDO as PDO;
 
 class RegisterController extends Controller
 {
@@ -48,7 +50,6 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -62,10 +63,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+	$pdo = conn::connect();
+	$stmt = $pdo->query("SELECT COUNT(*) FROM Users");
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	$new_id = $result['count'] + 1;
+	$pdo->exec("INSERT INTO Users (user_id, email, password, is_admin) VALUES (".$new_id.", '".$data['email']."', '".bcrypt($data['password'])."', FALSE)");
+	
+        return User::find($new_id);
     }
 }
