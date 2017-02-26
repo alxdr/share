@@ -13,6 +13,11 @@
 
 Route::get('/', 'IndexController@index');
 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('add_item', 'AddItemController@add_item');
+
+Route::get('add_item_post', 'AddItemController@add_item_post');
