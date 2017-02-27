@@ -14,17 +14,18 @@ class AllTablesSeeder extends Seeder
     {
 	$pdo = conn::connect();
         $faker = Faker\Factory::create();
-	$limit = 100;
+	$items_limit = 100;
+	$users_limit = 20;
 	$validator = function($word) {
 	    return strlen($word) <= 20;
 	};
-	for ($i = 1; $i <= 10; $i++) {
+	for ($i = 1; $i <= $users_limit; $i++) {
 	    $pass = pg_escape_string($faker->valid($validator)->password);
 	    $queryStr = "INSERT INTO Users (user_id, email, password, is_admin) VALUES ($i, '$faker->email', '$pass', FALSE)";
 	    $pdo->exec($queryStr);
 	}
 	
-	for ($i = 1; $i <= $limit; $i++) {
+	for ($i = 1; $i <= $items_limit; $i++) {
 	    if ($faker->randomDigit % 2 == 0) {
 		$name = pg_escape_string($faker->valid($validator)->name);
 		$str = "The Autobiography of " . $name;
@@ -35,12 +36,12 @@ class AllTablesSeeder extends Seeder
 		$country = pg_escape_string($faker->valid($validator)->country);
 	    	$str = $start . $country . $end . $faker->numberBetween($min=1,$max=12);
 	    }
-	    $id = $faker->numberBetween($min=1,$max=10);
+	    $id = $faker->numberBetween($min=1,$max=$users_limit);
 	    $queryStr = "INSERT INTO Items (item_id, description, availability, owner, bid_end_date) VALUES ($i, '$str', TRUE, $id, NULL)";
 	    $pdo->exec($queryStr);
 	}
 	
-	for ($i = 1; $i <=$limit; $i++) {
+	for ($i = 1; $i <=$items_limit; $i++) {
 	    if ($faker->randomDigit % 2 == 0) {
 	    	$bidder_id = $faker->numberBetween($min=1,$max=10);
 		$bid = $faker->numberBetween($min=1,$max=200);
