@@ -21,7 +21,7 @@ class AllTablesSeeder extends Seeder
 	};
 	for ($i = 1; $i <= $users_limit; $i++) {
 	    $pass = pg_escape_string($faker->valid($validator)->password);
-	    $queryStr = "INSERT INTO Users (user_id, email, password, is_admin) VALUES ($i, '$faker->email', '$pass', FALSE)";
+	    $queryStr = "INSERT INTO Users (email, password, is_admin) VALUES ('$faker->email', '$pass', FALSE)";
 	    $pdo->exec($queryStr);
 	}
 	
@@ -37,7 +37,7 @@ class AllTablesSeeder extends Seeder
 	    	$str = $start . $country . $end . $faker->numberBetween($min=1,$max=12);
 	    }
 	    $id = $faker->numberBetween($min=1,$max=$users_limit);
-	    $queryStr = "INSERT INTO Items (item_id, description, availability, owner, bid_end_date) VALUES ($i, '$str', TRUE, $id, NULL)";
+	    $queryStr = "INSERT INTO Items (description, availability, owner, bid_end_date) VALUES ('$str', TRUE, $id, NULL)";
 	    $pdo->exec($queryStr);
 	}
 	

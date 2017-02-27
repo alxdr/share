@@ -27,13 +27,11 @@ class AddItemController extends Controller
 
 
 
-    $result = $this->pdo->query("SELECT COUNT(*) FROM Items");
-    $count = $result ->fetchColumn() + 1;
     //echo($req -> description);
     $user_id = Auth::id();
     //echo("INSERT INTO Items (item_id, description, owner) VALUES ($count," .$req -> description. ", ".$user_id.")");
 
-    $this->pdo->exec("INSERT INTO Items (item_id, availability, description, owner) VALUES ($count, 'TRUE', '" .$req -> description. "', ".$user_id.")");
+    $this->pdo->exec("INSERT INTO Items (availability, description, owner) VALUES ('TRUE', '" .$req -> description. "', ".$user_id.")");
     //$this->pdo->exec("INSERT INTO Items (item_id, availability, description, owner) VALUES ($count, 'TRUE', '".$req -> description."', 11)");
     return redirect('main');
     }
