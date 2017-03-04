@@ -14,13 +14,11 @@ git remote add origin https://github.com/alxdr/share.git
 
 git remote -v
 
-git stash save -u
+git add .
+
+git commit -m "initial commit"
 
 git pull origin master
-
-git stash list
-
-git stash pop
 
 git status
 
