@@ -29,17 +29,57 @@ class BidController extends Controller
     	$item_id=$req->bid_item_id;
     	$point=$req->bid_item_point;
         $bidder=Auth::id();
-        $temp=$this->pdo->query("SELECT count(*) as total FROM bids WHERE item_id=".$item_id);
-        if($temp->fetch(PDO::FETCH_ASSOC)['total']==0){
-            $this->pdo->exec("INSERT INTO bids (item_id,highest_bid,highest_bidder) VALUES(".$item_id.", ".$point.", ".$bidder.")");
+        $curr_time=date('Y-m-d G:i:s');
+
+       
+        $tempResult=$this->pdo->query("SELECT availability,starting_bid,highest_bid_id,min_bid_increment FROM items WHERE item_id=".$item_id);
+        $row=$tempResult->fetch(PDO::FETCH_ASSOC);
+        
+        $itemOwner=$this->pdo->query("SELECT owner FROM items WHERE item_id=".$item_id)->fetch(PDO::FETCH_ASSOC)['owner'];
+
+        if($itemOwner==$bidder){
+            $message='Cannot bid for your own item';
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            return view('bid_item');
         } else {
-            $cur_highest_point = $this->pdo->query("SELECT highest_bid FROM bids WHERE item_id=".$item_id);
-            if($point>$cur_highest_point->fetch(PDO::FETCH_ASSOC)['highest_bid']){
-                $this->pdo->exec("UPDATE bids SET highest_bid=".$point." ,highest_bidder=".$bidder." WHERE item_id=".$item_id);
+            if($row['availability']==1){
+                if($row['highest_bid_id']==NULL){
+                    $nextMinBid=$row['starting_bid']+$row['min_bid_increment'];
+                    if($nextMinBid>$point){
+                        $message='need at least '.$nextMinBid.' to get successful bid';
+                        echo "<script type='text/javascript'>alert('$message');</script>";
+                        return view('bid_item');
+                    } else {
+                        $this->pdo->exec("INSERT INTO bid_history (item_id,bidder,bid_value,bid_time) VALUES(".$item_id.", ".$bidder.", ".$point.", '".$curr_time."')");
+                        $highestBidId=$this->pdo->query("SELECT bid_id FROM bid_history WHERE item_id=".$item_id." and bidder=".$bidder." and bid_value=".$point." and bid_time='".$curr_time."'")->fetch(PDO::FETCH_ASSOC)['bid_id'];
+                        $this->pdo->exec("UPDATE items SET highest_bid_id=".$highestBidId." WHERE item_id=".$item_id);
+
+                        $message='Bid Successfully!';
+                        echo "<script type='text/javascript'>alert('$message');</script>";
+                        return view('home');
+                    }
+                } else {
+                    $highestBidValue=$this->pdo->query("SELECT bid_value FROM bid_history WHERE bid_id=".$row['highest_bid_id'])->fetch(PDO::FETCH_ASSOC)['bid_value'];
+                    $nextMinBid=$highestBidValue+$row['min_bid_increment'];
+                    if($nextMinBid>$point){
+                        $message='need at least '.$nextMinBid.' to get successful bid';
+                        echo "<script type='text/javascript'>alert('$message');</script>";
+                        return view('bid_item');
+                    } else {
+                        $this->pdo->exec("INSERT INTO bid_history (item_id,bidder,bid_value,bid_time) VALUES(".$item_id.", ".$bidder.", ".$point.", '".$curr_time."')");
+                        $highestBidId=$this->pdo->query("SELECT bid_id FROM bid_history WHERE item_id=".$item_id." and bidder=".$bidder." and bid_value=".$point." and bid_time='".$curr_time."'")->fetch(PDO::FETCH_ASSOC)['bid_id'];
+                        $this->pdo->exec("UPDATE items SET highest_bid_id=".$highestBidId." WHERE item_id=".$item_id);
+                        $message='Bid Successfully!';
+                        echo "<script type='text/javascript'>alert('$message');</script>";
+                        return view('home');
+                    }
+                }   
+            } else {
+                $message='This item is not available for bidding now';
+                echo "<script type='text/javascript'>alert('$message');</script>";
+                return view('bid_item');
             }
         }
-    	
-	return redirect('main');
     }
 }
 
