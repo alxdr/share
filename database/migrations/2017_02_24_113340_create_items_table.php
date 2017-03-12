@@ -19,7 +19,7 @@ class CreateItemsTable extends Migration
 	$ddl = [
 	    'CREATE TABLE Users (
 		user_id SERIAL,
-		email VARCHAR(255),
+		email VARCHAR(255) UNIQUE,
 		password VARCHAR(255),
 		is_admin BOOLEAN,
 		remember_token VARCHAR(100),

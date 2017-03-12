@@ -15,8 +15,11 @@ Auth::routes();
 Route::get('/', 'IndexController@login');
 Route::get('/home', 'HomeController@index');
 Route::get('/main', 'IndexController@index')->name('main');
-Route::get('add_item', 'AddItemController@add_item');
-Route::get('add_item_post', 'AddItemController@add_item_post');
+Route::get('add_item', 'ItemController@add_item');
+Route::post('add_item_post', 'ItemController@add_item_post');
+Route::get('update_item', 'ItemController@update_item');
+Route::post('update_item_post', 'ItemController@update_item_post');
+Route::post('delete_item_post', 'ItemController@delete_item_post');
 Route::get('bid_item', 'BidController@bid_item');
 Route::post('submit_bid_info', 'BidController@bid_for_item')->name('submit_bid_info');
 
