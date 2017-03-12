@@ -22,8 +22,15 @@ class BidController extends Controller
     }
 
 	public function bid_item() {
-		return view('bid_item');
+        if(isset($_GET['item_id'])){
+            $item_id=$_GET['item_id'];    
+        } else {
+            $item_id='';
+        }
+		return view('bid_item')->with('item_id',$item_id);
     }
+
+
 
     public function bid_for_item(Request $req) {
     	$item_id=$req->bid_item_id;

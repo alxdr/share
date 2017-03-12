@@ -27,6 +27,8 @@
 			@else
 				<td> unavailable </td>
 			@endif
+		@elseif ($loop->iteration == 1)
+			<td><a href="bid_item?item_id={{$col}}"> {{$col}}</a></td>	
 		@else
 			<td> {{ $col }} </td>
 
