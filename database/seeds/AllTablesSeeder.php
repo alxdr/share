@@ -19,9 +19,17 @@ class AllTablesSeeder extends Seeder
 	$validator = function($word) {
 	    return strlen($word) <= 20;
 	};
+
+	//make admin as first user
+	$admin_email = 'admin@gmail.com';
+	$admin_pass = bcrypt('admin123');
+	$admin = "INSERT INTO Users (email, password, is_admin) VALUES ('$admin_email', '$admin_pass', TRUE)";
+	$pdo->exec($admin);
+
 	for ($i = 1; $i <= $users_limit; $i++) {
 	    $pass = pg_escape_string($faker->valid($validator)->password);
-	    $queryStr = "INSERT INTO Users (email, password, is_admin) VALUES ('$faker->email', '$pass', FALSE)";
+	    $email = $faker->unique()->freeEmail;
+	    $queryStr = "INSERT INTO Users (email, password, is_admin) VALUES ('$email', '$pass', FALSE)";
 	    $pdo->exec($queryStr);
 	}
 
