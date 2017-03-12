@@ -46,7 +46,7 @@ class AllTablesSeeder extends Seeder
 	    	$bidder_id = $faker->numberBetween($min=1,$max=10);
 		    $bid = $faker->numberBetween($min=100,$max=200);
             //$bidder = $faker->numberBetween($min=1,$max=20);
-	    	$queryStr = "INSERT INTO Bid_history (item_id, bid_value, bidder) VALUES ($i, $bid, $bidder_id)";
+	    	$queryStr = "INSERT INTO Bid_history (item_id, bid_value, bidder, bid_time) VALUES ($i, $bid, $bidder_id, '2017-03-12 10:23:44')";
 	    	$pdo->exec($queryStr);
 
 	    }
