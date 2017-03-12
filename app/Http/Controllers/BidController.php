@@ -37,11 +37,6 @@ class BidController extends Controller
     	$point=$req->bid_item_point;
         $bidder=Auth::id();
         $curr_time=date('Y-m-d G:i:s');
-        $tempResult=$this->pdo->query("SELECT availability,starting_bid,highest_bid_id,min_bid_increment FROM items WHERE item_id=".$item_id);
-        $row=$tempResult->fetch(PDO::FETCH_ASSOC);
-        
-        $itemOwner=$this->pdo->query("SELECT owner FROM items WHERE item_id=".$item_id)->fetch(PDO::FETCH_ASSOC)['owner'];
-
 
         if($item_id==''&&$point==''){
             $message='Please fill in the Item ID and your bidding points';
@@ -56,6 +51,9 @@ class BidController extends Controller
             echo "<script type='text/javascript'>alert('$message');</script>";
             return view('bid_item')->with('item_id',$item_id);
         } else {
+            $tempResult=$this->pdo->query("SELECT availability,starting_bid,highest_bid_id,min_bid_increment FROM items WHERE item_id=".$item_id);
+            $row=$tempResult->fetch(PDO::FETCH_ASSOC);
+            $itemOwner=$this->pdo->query("SELECT owner FROM items WHERE item_id=".$item_id)->fetch(PDO::FETCH_ASSOC)['owner'];
             if($itemOwner==$bidder){
                 $message='Cannot bid for your own item';
                 echo "<script type='text/javascript'>alert('$message');</script>";
@@ -100,10 +98,6 @@ class BidController extends Controller
                 }
             }
         }
-
-
-
-        
     }
 }
 
