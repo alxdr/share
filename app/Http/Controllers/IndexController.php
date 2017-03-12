@@ -30,7 +30,7 @@ class IndexController extends Controller
     }
 
     public function index() {
-	$result = $this->pdo->query("SELECT i.item_id, i.description, i.availability, b.bid_value FROM Items i LEFT OUTER JOIN Bid_history b on i.item_id = b.item_id ORDER BY i.item_id");
+	$result = $this->pdo->query("SELECT i.item_id, i.description, i.availability, b.bid_value FROM Items i LEFT OUTER JOIN Bid_history b on i.item_id = b.item_id and i.highest_bid_id=b.bid_id ORDER BY i.item_id");
 	$table = [];
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	    $table[] = $row;
