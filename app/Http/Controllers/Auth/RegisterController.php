@@ -67,7 +67,7 @@ class RegisterController extends Controller
 	$stmt = $pdo->query("SELECT COUNT(*) FROM Users");
 	$result = $stmt->fetch(PDO::FETCH_ASSOC);
 	$new_id = $result['count'] + 1;
-	$pdo->exec("INSERT INTO Users (user_id, email, password, is_admin) VALUES (".$new_id.", '".$data['email']."', '".bcrypt($data['password'])."', FALSE)");
+	$pdo->exec("INSERT INTO Users (email, password, is_admin) VALUES ('".$data['email']."', '".bcrypt($data['password'])."', FALSE)");
 	
         return User::find($new_id);
     }
