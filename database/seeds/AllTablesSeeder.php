@@ -26,6 +26,7 @@ class AllTablesSeeder extends Seeder
 	$admin = "INSERT INTO Users (email, password, is_admin) VALUES ('$admin_email', '$admin_pass', TRUE)";
 	$pdo->exec($admin);
 
+	//make fake users
 	for ($i = 1; $i <= $users_limit; $i++) {
 	    $pass = pg_escape_string($faker->valid($validator)->password);
 	    $email = $faker->unique()->freeEmail;
@@ -33,6 +34,7 @@ class AllTablesSeeder extends Seeder
 	    $pdo->exec($queryStr);
 	}
 
+	//make fake items
 	for ($i = 1; $i <= $items_limit; $i++) {
 	    if ($faker->randomDigit % 2 == 0) {
 		$name = pg_escape_string($faker->valid($validator)->name);
@@ -49,14 +51,13 @@ class AllTablesSeeder extends Seeder
 	    $pdo->exec($queryStr);
 	}
 
+	//make fake bids
 	for ($i = 1; $i <=$items_limit; $i++) {
 	    if ($faker->randomDigit % 2 == 0) {
 	    	$bidder_id = $faker->numberBetween($min=2,$max=10);
 		    $bid = $faker->numberBetween($min=100,$max=200);
-            //$bidder = $faker->numberBetween($min=1,$max=20);
 	    	$queryStr = "INSERT INTO Bid_history (item_id, bid_value, bidder, bid_time) VALUES ($i, $bid, $bidder_id, '2017-03-12 10:23:44')";
 	    	$pdo->exec($queryStr);
-
 	    }
 	    else {
 	  	continue;
