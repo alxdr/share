@@ -47,11 +47,12 @@
 			@if (Auth::guest())
 			@elseif (Auth::user()->is_admin)
 			<li><a href="/admin/1">Console</a><li>
+			<li><a href="/message">Message</a></li>
 			@else
 			<li><a href="/home">Home</a></li>
 			<li><a href="/add_item">Add Item</a></li>
 			<li><a href="/bid_item">Bid Item</a></li>
-			<li><a href="/message">Message<a></li>
+			<li><a href="/message">Message</a></li>
 			@endif
                     </ul>
 
