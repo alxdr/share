@@ -20,12 +20,14 @@ class IndexController extends Controller
     }
 
     public function login() {
-	$user = Auth::user();
-	if ($user === NULL) {
+	if (Auth::guest()) {
 	    return view('auth.login');
 	}
+	else if (Auth::user()->is_admin) {
+	    return redirect('/admin');
+	}
 	else {
-	    return view('home');
+	    return redirect('/home');
 	}
     }
 

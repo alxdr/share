@@ -31,8 +31,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+	if (Auth::user()->is_admin) {
+	    return redirect('admin/1');
+	}
         $user_id = Auth::id();
-        echo $user_id;
 
         $loans_result = $this->pdo->query("SELECT i.item_id, i.description, i.availability, l.loan_date, l.return_date
             FROM Items i LEFT OUTER JOIN Loan_history l ON i.item_id = l.item_id WHERE i.owner = $user_id ORDER BY i.item_id");

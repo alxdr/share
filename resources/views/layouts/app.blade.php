@@ -35,7 +35,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" @if (Auth::guest()) href="{{ url('/') }}" @else href="{{ url('/main') }}" @endif>
+                    <a class="navbar-brand" @if (Auth::guest()) href="{{ url('/') }}" @elseif (Auth::user()->is_admin) href="{{ url('/admin/1') }}" @else href="{{ url('/main') }}" @endif>
 			Share
                     </a>
                 </div>
@@ -45,11 +45,13 @@
                     <ul class="nav navbar-nav">
                         &nbsp;
 			@if (Auth::guest())
+			@elseif (Auth::user()->is_admin)
+			<li><a href="/admin/1">Console</a><li>
 			@else
 			<li><a href="/home">Home</a></li>
-			<li><a href="add_item">Add Item</a></li>
-			<li><a href="bid_item">Bid Item</a></li>
-			<li><a href="message">Message<a></li>
+			<li><a href="/add_item">Add Item</a></li>
+			<li><a href="/bid_item">Bid Item</a></li>
+			<li><a href="/message">Message<a></li>
 			@endif
                     </ul>
 

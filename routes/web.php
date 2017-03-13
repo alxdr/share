@@ -26,5 +26,18 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('message', 'MessageController@convo');
 	Route::get('send', 'MessageController@send');
 	Route::post('send', 'MessageController@sending');
+	Route::group(['middleware' => 'admin'], function() {
+		Route::get('admin', 'AdminController@admin');
+		Route::get('admin/{id}', 'AdminController@index');
+		Route::post('edit', 'AdminController@edit');
+		Route::post('edit_item', 'AdminController@edit_item');
+		Route::post('edit_user', 'AdminController@edit_user');
+		Route::post('edit_bid', 'AdminController@edit_bid');
+		Route::post('edit_loan', 'AdminController@edit_loan');
+		Route::post('insert_item', 'AdminController@insert_item');
+		Route::post('insert_user', 'AdminController@insert_user');
+		Route::post('insert_bid', 'AdminController@insert_bid');
+		Route::post('insert_loan', 'AdminController@insert_loan');
+	});
 });
 ?>

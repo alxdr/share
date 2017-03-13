@@ -52,6 +52,7 @@ class CreateItemsTable extends Migration
 		ON DELETE CASCADE);',
 
 	    'CREATE TABLE Loan_history (
+		loan_id SERIAL,
 		return_date TIMESTAMP NOT NULL,
 		loan_date TIMESTAMP NOT NULL,
 		item_id INT,
