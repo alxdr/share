@@ -200,6 +200,11 @@ class AdminController extends Controller
 		GROUP BY u.email
 		ORDER BY COUNT(b.item_id) DESC, u.email ASC
 		LIMIT 10');
-	return view('admin.stats', compact('data', 'avg', 'days', 'max', 'min', 'pop_result'));
+	$avg_bid = DB::select('SELECT AVG(bid_value) FROM bid_history')[0]->avg;
+	$total_users = DB::select('SELECT COUNT(*) FROM users')[0]->count;
+	$total_items = DB::select('SELECT COUNT(*) FROM items')[0]->count;
+	$total_bids = DB::select('SELECT COUNT(*) FROM bid_history')[0]->count;
+	$total_loans = DB::select('SELECT COUNT(*) FROM loan_history')[0]->count;
+	return view('admin.stats', compact('data', 'avg', 'days', 'max', 'min', 'pop_result', 'avg_bid', 'total_users', 'total_items', 'total_bids', 'total_loans'));
     }
 }

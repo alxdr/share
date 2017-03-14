@@ -9,7 +9,11 @@ var data1 = {
 	    @endunless
 	@endfor*/
 	@foreach($data as $key => $val)
-	    {{$key}}
+	    @if ($key == 0)
+	 	'today'
+	    @else
+	        {{$key}}
+	    @endif
 	    @unless ($loop->last)
 		,
 	    @endunless
