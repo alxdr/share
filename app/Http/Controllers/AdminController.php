@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as faker;
 
 class AdminController extends Controller
 {
@@ -159,5 +160,46 @@ class AdminController extends Controller
     public function insert_loan(Request $req) {
 	$result = DB::insert('INSERT INTO loan_history (return_date, loan_date, item_id, user_id) VALUES (?, ?, ?, ?)', [$req->return_date, $req->loan_date, $req->item_id, $req->user_id]);
 	return redirect('/admin/4');
+    }
+
+    public function stats() {
+	$faker = faker::create();
+	$result = DB::select('
+		SELECT COUNT(*), bid_time::DATE 
+		FROM bid_history 
+		GROUP BY bid_time::DATE
+		LIMIT 10');
+	$avg_result = DB::select('
+		SELECT AVG(num) AS average FROM (
+			SELECT COUNT(*) AS num, bid_time::DATE AS date 
+			FROM bid_history 
+			GROUP BY bid_time::DATE
+			LIMIT 10) 
+		AS subtable');
+	$days = 9;
+	//$keys = range(0, $days);
+	//$vals = array_fill(0, $days + 1, 0);
+	//$data = array_combine($keys, $vals);
+	$avg = $avg_result[0]->average;
+	$now_date = date_create(date('Y-m-d'));
+	foreach($result as $row) {
+	    $date = date_create($row->bid_time);
+	    $diff = date_diff($now_date, $date)->days;
+	    $data[$diff] = $row->count;
+	}
+	krsort($data);
+	$max_result = DB::select('SELECT MAX(bid_value) FROM bid_history');
+	$max = $max_result[0]->max;
+	$min_result = DB::select('SELECT MIN(bid_value) FROM bid_history');
+	$min = $min_result[0]->min;
+	$pop_result = DB::select('
+		SELECT u.email AS email, COUNT(b.item_id) AS count 
+		FROM bid_history b, items i, users u 
+		WHERE b.item_id = i.item_id
+		AND i.owner = u.user_id 
+		GROUP BY u.email
+		ORDER BY COUNT(b.item_id) DESC, u.email ASC
+		LIMIT 10');
+	return view('admin.stats', compact('data', 'avg', 'days', 'max', 'min', 'pop_result'));
     }
 }

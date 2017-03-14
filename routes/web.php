@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::post('insert_user', 'AdminController@insert_user');
 		Route::post('insert_bid', 'AdminController@insert_bid');
 		Route::post('insert_loan', 'AdminController@insert_loan');
+		Route::get('stats', 'AdminController@stats');
 	});
 });
 ?>
