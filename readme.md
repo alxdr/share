@@ -75,3 +75,7 @@ php artisan migrate
 php artisan db:seed --class=AllTablesSeeder
 
 Go to localhost and check it is live locally.
+
+
+ANY DEPENDENCIES ISSUE:
+composer install
