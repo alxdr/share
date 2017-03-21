@@ -39,10 +39,40 @@
                                 </table>
                             </div>
                         </div>
-
-
-
                 </div>
+
+                <div class="panel-heading">Items on Loan to You
+                    <div class="panel-body">
+                        <div class="table-responsive" align="center">
+                            <table class="table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                <th style="padding:5px;"> Item ID </th>
+                                <th style="padding:5px;"> Item Description </th>
+                                <th style="padding:5px;"> Loan Date </th>
+                                <th style="padding:5px;"> Return Date </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($loans_to_you_table as $row)
+                                      <tr>
+                                      @foreach ($row as $col)
+                                        @if ($loop->iteration > 4)
+
+                                        @elseif($loop->iteration == 1)
+                                                <td>{{ $col }}</td>
+                                            @else
+                                          <td> {{ $col }} </td>
+                                        @endif
+                                      @endforeach
+                                      </tr>
+                                    @endforeach
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+
                 <div class="panel-heading">Your Items on Loan
                     <div class="panel-body">
                         <div class="table-responsive" align="center">

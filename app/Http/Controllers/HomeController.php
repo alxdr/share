@@ -44,6 +44,15 @@ class HomeController extends Controller
     	    $bids_table[] = $row;
     	}
 
+      $loans_to_you_result = $this->pdo->query("SELECT i.item_id, i.description, l.loan_date, l.return_date
+          FROM Items i LEFT OUTER JOIN Loan_history l ON i.item_id = l.item_id
+          WHERE l.user_id = $user_id AND i.availability = 'FALSE' AND l.return_date >= NOW() ORDER BY i.item_id");
+    $loans_to_you_table = [];
+    while ($row = $loans_to_you_result->fetch(PDO::FETCH_ASSOC)) {
+        $loans_to_you_table[] = $row;
+    }
+
+
         $loans_result = $this->pdo->query("SELECT i.item_id, i.description, l.loan_date, l.return_date
             FROM Items i LEFT OUTER JOIN Loan_history l ON i.item_id = l.item_id
             WHERE i.owner = $user_id AND i.availability = 'FALSE' ORDER BY i.item_id");
@@ -62,6 +71,7 @@ class HomeController extends Controller
     	}
 
         return view('home')-> with('bids_table', $bids_table)
-        ->with('items_table', $items_table) ->with('loans_table', $loans_table) ;
+        ->with('items_table', $items_table) ->with('loans_table', $loans_table)
+        ->with('loans_to_you_table', $loans_to_you_table) ;
     }
 }

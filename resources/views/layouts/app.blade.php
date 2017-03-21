@@ -47,6 +47,7 @@
 			@if (Auth::guest())
 			@elseif (Auth::user()->is_admin)
 			<li><a href="/admin/1">Console</a><li>
+      <li><a href="/admin_update">Updates</a><li>
 			<li><a href="/stats">Statistics</a></li>
 			<li><a href="/message">Message</a></li>
 			@else
