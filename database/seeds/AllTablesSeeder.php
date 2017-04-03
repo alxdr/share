@@ -47,7 +47,7 @@ class AllTablesSeeder extends Seeder
 	    	$str = $start . $country . $end . $faker->numberBetween($min=1,$max=12);
 	    }
 	    $id = $faker->numberBetween($min=2,$max=$users_limit);
-	    $queryStr = "INSERT INTO Items (description, availability, bid_end_date, bid_start_date, starting_bid, min_bid_increment, highest_bid_id, owner) VALUES ('$str', TRUE, '2017-03-25 13:23:44', '2017-03-11 13:23:44', 100, 10, $i, $id)";
+	    $queryStr = "INSERT INTO Items (description, availability, bid_end_date, bid_start_date, starting_bid, min_bid_increment, highest_bid_id, owner) VALUES ('$str', TRUE, '2017-04-25 00:00:00', '2017-03-30 13:23:44', 100, 10, $i, $id)";
 	    $pdo->exec($queryStr);
 	}
 
@@ -55,7 +55,7 @@ class AllTablesSeeder extends Seeder
 	for ($i = 1; $i <=$items_limit; $i++) {
     	$bidder_id = $faker->numberBetween($min=2,$max=10);
 	    $bid = $faker->numberBetween($min=100,$max=200);
-    	$queryStr = "INSERT INTO Bid_history (item_id, bid_value, bidder, bid_time) VALUES ($i, $bid, $bidder_id, '2017-03-12 10:23:44')";
+    	$queryStr = "INSERT INTO Bid_history (item_id, bid_value, bidder, bid_time) VALUES ($i, $bid, $bidder_id, '2017-04-02 10:23:44')";
     	$pdo->exec($queryStr);
 	}
     }
