@@ -13,7 +13,7 @@
 <th>Item ID</th>
 <th>Description</th>
 <th>Availability</th>
-<th>Owner</th>
+<th>Owner's Email</th>
 <th>Current Highest Bid</th>
 </tr>
 </thead>
