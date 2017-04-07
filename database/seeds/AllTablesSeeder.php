@@ -1,8 +1,6 @@
 <?php
-
 use Illuminate\Database\Seeder;
 use App\Connection as conn;
-
 class AllTablesSeeder extends Seeder
 {
     /**
@@ -19,13 +17,11 @@ class AllTablesSeeder extends Seeder
 	$validator = function($word) {
 	    return strlen($word) <= 20;
 	};
-
 	//make admin as first user
 	$admin_email = 'admin@gmail.com';
 	$admin_pass = bcrypt('admin123');
 	$admin = "INSERT INTO Users (email, password, is_admin) VALUES ('$admin_email', '$admin_pass', TRUE)";
 	$pdo->exec($admin);
-
 	//make fake users
 	for ($i = 1; $i <= $users_limit; $i++) {
 	    $pass = pg_escape_string($faker->valid($validator)->password);
@@ -33,7 +29,6 @@ class AllTablesSeeder extends Seeder
 	    $queryStr = "INSERT INTO Users (email, password, is_admin) VALUES ('$email', '$pass', FALSE)";
 	    $pdo->exec($queryStr);
 	}
-
 	//make fake items
 	for ($i = 1; $i <= $items_limit; $i++) {
 	    if ($faker->randomDigit % 2 == 0) {
@@ -50,7 +45,6 @@ class AllTablesSeeder extends Seeder
 	    $queryStr = "INSERT INTO Items (description, availability, bid_end_date, bid_start_date, starting_bid, min_bid_increment, highest_bid_id, owner) VALUES ('$str', TRUE, '2017-04-25 00:00:00', '2017-03-30 13:23:44', 100, 10, $i, $id)";
 	    $pdo->exec($queryStr);
 	}
-
 	//make fake bids
 	for ($i = 1; $i <=$items_limit; $i++) {
     	$bidder_id = $faker->numberBetween($min=2,$max=10);
